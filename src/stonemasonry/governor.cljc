@@ -75,7 +75,7 @@
                                   the workshop's registered
                                   `:max-supply-order-cost`.
     12. low confidence (< `confidence-floor`)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [stonemasonry.store :as store]))
 
 (def confidence-floor 0.6)
@@ -146,11 +146,11 @@
   #{:execution-override :safety-officer-override :cut-authorization :carving-authorization})
 
 (defn- text-blob [proposal]
-  (str/lower-case (str (:rationale proposal) " " (:description proposal) " " (:note proposal))))
+  (str/lower (str (:rationale proposal) " " (:description proposal) " " (:note proposal))))
 
 (defn- scope-excluded? [proposal]
   (let [blob (text-blob proposal)]
-    (boolean (some #(str/includes? blob (str/lower-case %)) scope-excluded-terms))))
+    (boolean (some #(str/includes? blob (str/lower %)) scope-excluded-terms))))
 
 (defn- forbidden-key-violation [proposal forbidden-keys]
   (some forbidden-keys (keys proposal)))
