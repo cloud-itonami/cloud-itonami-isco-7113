@@ -1,5 +1,5 @@
 (ns stonemasonry.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [stonemasonry.store :as store]
             [stonemasonry.advisor :as advisor]
             [stonemasonry.governor :as governor]))
