@@ -1,5 +1,5 @@
 (ns stonemasonry.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [stonemasonry.actor :as actor]
             [stonemasonry.advisor :as advisor]
             [stonemasonry.governor :as governor]
