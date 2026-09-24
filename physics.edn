@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a workshop scheduling/logistics coordination robot
+;; performs crew scheduling, work-record logging and materials-procurement
+;; coordination for stonemasons, stone cutters, splitters and carvers
+;; (ISCO 7113). It never cuts, splits or carves stone. Its physical work is
+;; materials logistics: moving delivered stone blanks on a trolley from the
+;; yard to a banker bench, and lifting a small blank onto the bench.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-7113"
+ :cases
+ [{:id :stone-blank-yard-to-bench
+   :kind :transport
+   :procedure "logistics robot moves a trolley of delivered stone blanks 30 m from the yard to a banker bench over a concrete workshop floor"
+   :params {:mass-kg 250.0 :distance-m 30.0 :v-max-mps 0.5 :a-max-mps2 0.15
+            :brake-decel-mps2 0.3 :drive-force-n 700.0 :crr 0.03
+            :cog-height-m 0.50 :support-half-length-m 0.50}
+   :sweep {:param :payload-kg :values [50.0 150.0 300.0 600.0 1000.0]}
+   :quantity :cycle-time-s
+   :limit {:max 120.0 :basis "estimate: a blank must reach the bench within ~2 minutes of the mason's call"}
+   :boundary {:lo 10.0 :hi 2500.0}}
+  {:id :small-blank-onto-banker
+   :kind :manipulator
+   :procedure "arm lifts a small stone blank from the trolley onto the banker bench"
+   :params {:l1-m 0.80 :l2-m 0.70 :m1-kg 15.0 :m2-kg 10.0
+            :from [0.90 0.10] :to [0.55 0.80] :duration-s 3.0 :steps 500}
+   :sweep {:param :payload-kg :values [5.0 10.0 20.0 30.0 40.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 350.0 :basis "estimate: continuous shoulder torque of a ~30 kg payload class arm"}
+   :boundary {:lo 1.0 :hi 80.0}}]}
