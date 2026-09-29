@@ -1,6 +1,6 @@
 (ns stonemasonry.store
   "SSoT for the ISCO-08 7113 stonemasonry workshop coordination actor
-  (itonami actor pattern, ADR-2607121000 / CLAUDE.md Actors section;
+  (itonami actor pattern, ADR-2607121000 / AGENTS.md Actors section;
   README's 'Robotics premise' — a workshop scheduling/logistics
   coordination robot manages crew scheduling, work-record logging and
   stone-materials procurement proposals under this advisor/governor
